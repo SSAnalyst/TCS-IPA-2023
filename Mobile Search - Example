@@ -1,0 +1,96 @@
+
+import java.util.*;
+import java.io.*;
+
+class Mobile{
+    
+    private int id;
+    private String brand;
+    private double price;
+    private int ram;
+    
+    public Mobile() {}
+    
+    public Mobile(int id, String brand, double price, int ram){
+        this.id = id;
+        this.brand = brand;
+        this.price = price;
+        this.ram = ram;
+    }
+    
+    public int getId() {return this.id;}
+    public String getBrand() {return this.brand;}
+    public double getPrice() {return this.price;}
+    public int getRam() {return this.ram;}
+    
+    public void setId(int id) {this.id = id;}
+    public void setBrand(String brand) {this.brand = brand;}
+    public void setPrice(double price) {this.price = price;}
+    public void setRam(int ram) {this.ram = ram;}
+    
+}
+
+class Main{
+    
+    public static Mobile[] byBrand(Mobile[] mobiles, String searchByBrand){
+        ArrayList<Mobile> byMobile = new ArrayList<> ();
+        for(Mobile mobile : mobiles){
+            if(mobile.getBrand().equalsIgnoreCase(searchByBrand)){
+                byMobile.add(mobile);
+            }
+        }
+        if(byMobile.size() == 0) return null;
+        return byMobile.toArray(new Mobile[byMobile.size()]);
+    }
+    
+    public static int byRam(Mobile[] mobiles, int reqRam){
+        int count = 0;
+        for(Mobile mobile : mobiles){
+            if(mobile.getRam() >= reqRam){
+                count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        Mobile[] mobiles = new Mobile[2];
+        
+        for(int i=0;i<2;i++){
+            int id = Integer.parseInt(sc.nextLine());
+            String brand = sc.nextLine();
+            double price = Double.parseDouble(sc.nextLine());
+            int ram = Integer.parseInt(sc.nextLine());
+            
+            Mobile mobile = new Mobile(id,brand,price,ram);
+            mobiles[i] = mobile;
+            
+        }
+        
+        String searchByBrand = sc.nextLine(); 
+        int reqRam = sc.nextInt();
+        
+        int countByRam = byRam(mobiles, reqRam);
+        if(countByRam != 0){
+            System.out.println("Count of Mobile above min ram :- "+countByRam);
+        }
+        else System.out.println("No laptop with required ram available");
+        
+        Mobile[] newList = byBrand(mobiles,searchByBrand);
+        
+        if(newList != null){
+            System.out.println("Search Result as searched :- below*");
+            for(Mobile mobile : newList){
+                System.out.println(mobile.getBrand());
+                System.out.println(mobile.getPrice());
+            }
+        }
+    }
+}
+
+
+
+
+
