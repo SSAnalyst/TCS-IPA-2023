@@ -1,0 +1,99 @@
+import java.util.*;
+import java.io.*;
+
+class Invent{
+  String id;
+  int max;
+  int curr;
+  int thres;
+  
+  public Invent(String id,int max, int curr, int thres){
+    this.id = id;
+    this.max = max;
+    this.curr = curr;
+    this.thres = thres;
+  }
+  
+  public String getId() {
+  return id;
+  }
+  public int getMax() {
+  return max;
+  }
+  public int getCurr() {
+  return curr;
+  }
+  public int getThres() {
+  return thres;
+  }
+  
+  public void setId(String id) {
+  this.id = id;
+  }
+  public void setMax(int max) {
+  this.max = max;
+  }
+  public void setCurr(int curr) {
+  this.curr = curr;
+  }
+  public void setThres(int thres) {
+  this.thres = thres;
+  }
+  
+}
+
+public class MyClass{
+  
+  public static Invent[] find(Invent[] invents, int x){
+  
+    ArrayList<Invent> arr = new ArrayList<>();
+    
+    for(Invent invent : invents){
+      if(invent.getThres() <= x){
+        arr.add(invent);
+      }
+    }
+    
+    if(arr.size() == 0) return null;
+    
+    return arr.toArray(new Invent[arr.size()]);
+  }
+  
+  public static void main(String args[]){
+    Scanner sc = new Scanner(System.in);
+    Invent[] invents = new Invent[4];
+    for(int i=0;i<4;i++){
+      String id = sc.nextLine();
+      int max = sc.nextInt();
+      sc.nextLine();
+      int curr = sc.nextInt();
+      sc.nextLine();
+      int thres = sc.nextInt();
+      sc.nextLine();
+      
+      Invent invent = new Invent(id,max,curr,thres);
+      invents[i] = invent;
+    }
+    
+    int x = sc.nextInt();
+    
+    Invent[] res = find(invents,x);
+    
+    if(res != null){
+      for(Invent invent : res){
+        if(invent.getThres() >= 75){
+          System.out.println(invent.getId() + " Critical Filling");
+        }
+        else if(invent.getThres() <= 74 && invent.getThres() >= 50){
+          System.out.println(invent.getId() + " Moderate Filling");
+        }
+        else {
+        System.out.println(invent.getId() + " Non-Critical Filling");
+        }
+      }
+    }
+    
+    
+  }
+}
+              
